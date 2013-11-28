@@ -795,7 +795,7 @@ class MysqlAdapter extends PdoAdapter implements AdapterInterface
                      ? '(' . ($column->getLimit() ? $column->getLimit() : $sqlType['limit']) . ')' : '';
         $def .= (! $column->isSigned() && isset($this->signedColumnTypes[$column->getType()])) ? ' unsigned' : '' ;
         $def .= ($column->isNull() == false) ? ' NOT NULL' : ' NULL';
-        $def .= ($column->isIdentity()) ? ' AUTO_INCREMENT' : '';
+        $def .= ($column->isIdentity() || $column->isAutoIncrement()) ? ' AUTO_INCREMENT' : '';
         $default = $column->getDefault();
         if (is_numeric($default) || $default == 'CURRENT_TIMESTAMP') {
             $def .= ' DEFAULT ' . $column->getDefault();
